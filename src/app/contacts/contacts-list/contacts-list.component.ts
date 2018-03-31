@@ -12,7 +12,7 @@ export class ContactsListComponent implements OnInit {
   contacts: ContactModel[];
   contactsCount: Number;
 
-  constructor(private contactsService: ContactsService) { }
+  constructor(private contactsService: ContactsService) {}
 
   ngOnInit() {
     this.loadContacts();
@@ -28,9 +28,20 @@ export class ContactsListComponent implements OnInit {
   }
 
   loadContacts(): void {
-    this.contactsService.getContacts().subscribe((contacts) => {
+    this.contactsService.getContacts().subscribe(contacts => {
       this.contacts = contacts;
       this.contactsCount = contacts.length;
     });
+  }
+  removeContact(contact: ContactModel, event: Event) {
+    event.stopPropagation();
+    const conf = confirm('Wywalic zostawic');
+    if (conf) {
+      this.contactsService.removeContact(contact.id).subscribe(() => this.loadContacts());
+    }
+  }
+    editable(contact: ContactModel, event: Event) {
+      event.stopPropagation();
+       this.contactsService.getContacts().subscribe(() => this.loadContacts());
   }
 }

@@ -1,3 +1,41 @@
-<p>
-  contact-add works!
-</p>
+<app-header>
+  <p content>Dodawanie kontaktow</p>
+</app-header>
+
+<form [formGroup]="contactForm">
+  <div class="row form-group">
+    <div class="col-sm-12 col-xl-4">
+      <label>Nazwisko</label> 
+      <input [formControlName]="'surname'" type="text" class="form-control" placeholder="Nazwisko" autofocus>
+      <p *ngIf="!contactForm.get('surname').valid && contactForm.get('surname').dirty" class="error">Uzupełnij to pole</p>
+    </div>
+    <div class="col-sm-12 col-xl-4">
+      <label>Imię</label> 
+      <input [formControlName]="'firstName'" type="text" class="form-control" placeholder="Imię">
+      <p *ngIf="!contactForm.get('firstName').valid && contactForm.get('firstName').dirty" class="error">Uzupełnij to pole</p>
+    </div>
+    <div class="col-sm-12 col-xl-4">
+      <label>Numer telefonu</label> 
+      <input [formControlName]="'phoneNumber'" type="text" class="form-control" placeholder="Numer telefonu">
+      <p *ngIf="!contactForm.get('phoneNumber').valid && contactForm.get('phoneNumber').dirty" class="error">Uzupełnij to pole</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <button [disabled]="contactForm.invalid" class="btn btn-sm btn-info" (click)="addContact()">Zapisz</button>
+      <button class="btn btn-sm btn-dark" [routerLink]="['/contacts']">Wstecz</button>
+      <button class="btn btn-sm btn-danger" (click) = "contactForm.reset()">Wyczyśc</button>
+    </div>
+  </div>
+</form>
+<pre>
+  {{ contactForm.value | json }}
+</pre>
+
+<pre>
+  {{ contactForm.status | json }}
+</pre>
+
+<pre>Nazwisko: {{ contactForm.get('surname').valid }}</pre>
+<pre>Imię: {{ contactForm.get('firstName').valid }}</pre>
+<pre>Telefon: {{ contactForm.get('phoneNumber').valid }}</pre>

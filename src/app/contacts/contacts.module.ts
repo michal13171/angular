@@ -6,15 +6,18 @@ import { SharedModule } from '../shared/shared.module';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import { ContactsRoutingModule } from './contacts-routing.module';
 import { ContactAddComponent } from './contact-add/contact-add.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ContactEditComponent } from './contact-edit/contact-edit.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    ContactsRoutingModule
+    ContactsRoutingModule,
+    ReactiveFormsModule
   ],
   exports: [ContactsListComponent, ContactDetailsComponent],
-  declarations: [ContactsListComponent, ContactsCountComponent, ContactDetailsComponent, ContactAddComponent]
+  declarations: [ContactsListComponent, ContactsCountComponent, ContactDetailsComponent, ContactAddComponent, ContactEditComponent]
 })
 export class ContactsModule { }
