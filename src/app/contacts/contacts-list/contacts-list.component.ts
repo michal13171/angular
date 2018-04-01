@@ -40,8 +40,11 @@ export class ContactsListComponent implements OnInit {
       this.contactsService.removeContact(contact.id).subscribe(() => this.loadContacts());
     }
   }
-    editable(contact: ContactModel, event: Event) {
+    editable( event: Event): void {
       event.stopPropagation();
-       this.contactsService.getContacts().subscribe(() => this.loadContacts());
+      this.contactsService.getContacts().subscribe(contacts => {
+      this.contacts = contacts;
+      this.contactsCount = contacts.length;
+      });
   }
 }
