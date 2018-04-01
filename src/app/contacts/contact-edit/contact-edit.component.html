@@ -1,0 +1,26 @@
+<app-header>
+  <p content>Edytuj opcje</p>
+</app-header>
+
+<form [formGroup]="contactForm">
+  <div class="row form-group">
+    <div class="col-sm-12 col-xl-4">
+      <label>Nazwisko</label>
+      <input [formControlName]="'surname'" type="text" class="form-control" placeholder="Nazwisko" autofocus>
+    </div>
+    <div class="col-sm-12 col-xl-4">
+      <label>Imię</label>
+      <input [formControlName]="'firstName'" type="text" class="form-control" placeholder="Imię">
+    </div>
+    <div class="col-sm-12 col-xl-4">
+      <label>Numer telefonu</label>
+      <input [formControlName]="'phoneNumber'" type="text" class="form-control" placeholder="Numer telefonu">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-sm btn-info" (click)="editable()">Zapisz zmiany</button>
+      <button class="btn btn-sm btn-dark" [routerLink]="['/contacts']">Wstecz</button>
+    </div>
+  </div>
+</form>

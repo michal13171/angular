@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactModel } from '../../models/contact-model';
-import { CONTACTS } from '../../data/contacts-data';
+import { ContactsService } from '../contacts.service';
+// import { CONTACTS } from '../../data/contacts-data';
 
 @Component({
   selector: 'app-contacts-list',
@@ -8,13 +9,13 @@ import { CONTACTS } from '../../data/contacts-data';
   styleUrls: ['./contacts-list.component.scss']
 })
 export class ContactsListComponent implements OnInit {
-  contacts: ContactModel[] = CONTACTS;
-  contactsCount: Number = this.contacts.length;
+  contacts: ContactModel[];
+  contactsCount: Number;
 
-
-  constructor() { }
+  constructor(private contactsService: ContactsService) {}
 
   ngOnInit() {
+    this.loadContacts();
   }
 
   hideContacts() {
@@ -23,8 +24,27 @@ export class ContactsListComponent implements OnInit {
   }
 
   showContacts() {
-    this.contacts = CONTACTS;
-    this.contactsCount = this.contacts.length;
+    this.loadContacts();
   }
 
+  loadContacts(): void {
+    this.contactsService.getContacts().subscribe(contacts => {
+      this.contacts = contacts;
+      this.contactsCount = contacts.length;
+    });
+  }
+  removeContact(contact: ContactModel, event: Event) {
+    event.stopPropagation();
+    const conf = confirm('Wywalic zostawic');
+    if (conf) {
+      this.contactsService.removeContact(contact.id).subscribe(() => this.loadContacts());
+    }
+  }
+    editable( event: Event): void {
+      event.stopPropagation();
+      this.contactsService.getContacts().subscribe(contacts => {
+      this.contacts = contacts;
+      this.contactsCount = contacts.length;
+      });
+  }
 }
