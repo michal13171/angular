@@ -5,26 +5,34 @@
 <form [formGroup]="contactForm">
   <div class="row form-group">
     <div class="col-sm-12 col-xl-4">
-      <label>Nazwisko</label>
-      <input [formControlName]="'surname'" type="text" class="form-control" placeholder="Nazwisko" autofocus>  
-      <p *ngIf="!contactForm.get('surname').valid && contactForm.get('surname').pristine" class="error">Uzupełnij to pole</p>
-    </div>
-    <div class="col-sm-12 col-xl-4">
       <label>Imię</label>
       <input [formControlName]="'firstName'" type="text" class="form-control" placeholder="Imię">
-      <p *ngIf="!contactForm.get('firstName').valid && contactForm.get('firstName').pristine" class="error">Uzupełnij to pole</p>
+      <app-contact-add [displayError]="isFieldValid('name')" errorMsg="Uzupełnij to pole">
+      </app-contact-add>
+      <!-- <p *ngIf="!contactForm.get('firstName').valid && contactForm.get('firstName').touched" class="error">Uzupełnij to pole</p> -->
+
     </div>
     <div class="col-sm-12 col-xl-4">
+      <label>Nazwisko</label>
+      <input [formControlName]="'surname'" type="text" class="form-control" placeholder="Nazwisko" autofocus>
+      <!-- <p *ngIf="!contactForm.get('surname').valid && contactForm.get('surname').touched" class="error">Uzupełnij to pole</p> -->
+<app-contact-add [displayError]="isFieldValid('surname')" errorMsg="Uzupełnij to pole">
+</app-contact-add>
+    </div>
+
+    <div class="col-sm-12 col-xl-4">
       <label>Numer telefonu</label>
-      <input [formControlName]="'phoneNumber'" pattern="[a-zA-Z ]*"  type="text" class="form-control" placeholder="Numer telefonu">
-      <p *ngIf="!contactForm.get('phoneNumber').valid.pattern && contactForm.get('phoneNumber').pristine" class="error">Uzupełnij to pole</p>
+      <input [formControlName]="'phoneNumber'" type="text" class="form-control" placeholder="Numer telefonu">
+      <!-- <p *ngIf="!contactForm.get('phoneNumber').valid && contactForm.get('phoneNumber').touched" class="error">Uzupełnij to pole</p> -->
+    <app-contact-add [displayError]="isFieldValid('phoneNumber')" errorMsg="Uzupełnij to pole">
+    </app-contact-add>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <button [disabled]="contactForm.invalid" class="btn btn-sm btn-info" (click)="addContact()">Zapisz</button>
+      <button class="btn btn-sm btn-info" (click)="addContact()">Zapisz</button>
       <button class="btn btn-sm btn-dark" [routerLink]="['/contacts']">Wstecz</button>
-      <button class="btn btn-sm btn-danger" (click) = "contactForm.reset()">Wyczyśc</button>
+      <button class="btn btn-sm btn-danger" (click)="contactForm.reset()">Wyczyśc</button>
     </div>
   </div>
 </form>
