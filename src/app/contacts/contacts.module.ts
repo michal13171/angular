@@ -7,7 +7,8 @@ import { ContactDetailsComponent } from './contact-details/contact-details.compo
 import { ContactsRoutingModule } from './contacts-routing.module';
 import { ContactAddComponent } from './contact-add/contact-add.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ContactEditComponent } from './contact-edit/contact-edit.component';
+import { ContactModComponent } from './contact-mod/contact-mod.component';
+import { ContactResolveService } from './contact-resolve.service';
 
 
 @NgModule({
@@ -17,7 +18,10 @@ import { ContactEditComponent } from './contact-edit/contact-edit.component';
     ContactsRoutingModule,
     ReactiveFormsModule
   ],
+  providers: [
+    ContactResolveService
+  ],
   exports: [ContactsListComponent, ContactDetailsComponent],
-  declarations: [ContactsListComponent, ContactsCountComponent, ContactDetailsComponent, ContactAddComponent, ContactEditComponent]
+  declarations: [ContactsListComponent, ContactsCountComponent, ContactDetailsComponent, ContactAddComponent, ContactModComponent]
 })
 export class ContactsModule { }

@@ -1,5 +1,5 @@
 <app-header>
-  <p content>Dodawanie kontaktow</p>
+  <p content>Edytowanie kontaktow</p>
 </app-header>
 
 <form [formGroup]="contactForm">
@@ -29,8 +29,9 @@
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <button class="btn btn-sm btn-info" (click)="varify()">Zapisz</button>
-      <button class="btn btn-sm btn-dark" [routerLink]="['/contacts']">Wstecz</button>
+      <button class="btn btn-sm btn-info" (click)="updateContact()">Zapisz</button>
+            <button class="btn btn-sm btn-dark" [routerLink]="['/contacts']">Wstecz</button>
+
       <button class="btn btn-sm btn-danger" (click)="contactForm.reset()">Wyczyśc</button>
     </div>
   </div>

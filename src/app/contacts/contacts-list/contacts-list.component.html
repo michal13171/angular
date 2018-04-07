@@ -18,7 +18,7 @@
       <td>{{ contact?.surname }}</td>
       <td>{{ contact?.firstName }}</td>
       <td>{{ contact?.phoneNumber }}</td>
-      <td><button class="btn btn-success" [routerLink]="['/product/update/:id']" (click)="editable(contact, $event)">Edytuj</button></td>
+      <td><button class="btn btn-success" (click)="editable(contact, $event)">Edytuj</button></td>
       <td><button class="btn btn-danger" (click)="removeContact(contact, $event)">Usuń</button></td>
     </tr>
   </tbody>

@@ -1,21 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ContactsService } from '../contacts.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ContactModel } from '../../models/contact-model';
 
 @Component({
-  selector: 'app-contact-add',
-  templateUrl: './contact-add.component.html',
-  styleUrls: ['./contact-add.component.scss']
+  selector: 'app-contact-mod',
+  templateUrl: './contact-mod.component.html',
+  styleUrls: ['./contact-mod.component.scss']
 })
-export class ContactAddComponent implements OnInit {
+export class ContactModComponent implements OnInit {
   contactForm: FormGroup;
-
+  contact: ContactModel;
   firstNamePattern:
     | string
     | RegExp = '^[A-Z,Ł,Ś,Ż,Ó,Ę,Ć][a-z,ą,ę,ć,ń,ó,ś,ł]{2,15}$';
@@ -31,24 +27,26 @@ export class ContactAddComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private contactsService: ContactsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.loadContacts();
     this.buildContactForm();
   }
 
   private buildContactForm() {
     this.contactForm = new FormGroup({
-      surname: new FormControl(null, [
+      surname: new FormControl(this.contact[0].surname, [
         Validators.required,
         Validators.pattern(this.surnamePattern)
       ]),
-      firstName: new FormControl(null, [
+      firstName: new FormControl(this.contact[0].firstName, [
         Validators.required,
         Validators.pattern(this.firstNamePattern)
       ]),
-      phoneNumber: new FormControl(null, [
+      phoneNumber: new FormControl(this.contact[0].phoneNumber, [
         Validators.required,
         Validators.minLength(7),
         Validators.maxLength(12),
@@ -57,29 +55,30 @@ export class ContactAddComponent implements OnInit {
     });
   }
 
+  loadContacts() {
+    this.contact = this.route.snapshot.data['contact'];
+  }
 
-  addContact() {
-    this.contactsService
-      .addContact(this.contactForm.value)
-      .subscribe(() => this.router.navigate(['/contacts']));
+  updateContact() {
+    this.contactsService.editable(this.contact[0].id, this.contactForm.value).subscribe(() => this.router.navigate(['/contacts']));
   }
   varify() {
-      this.firstNamevalid = true;
-      this.surnamevalid = true;
-      this.phoneNumbervalid = true;
+    this.firstNamevalid = true;
+    this.surnamevalid = true;
+    this.phoneNumbervalid = true;
 
     if (!this.contactForm.get('firstName').valid) {
-        this.firstNamevalid = false;
+      this.firstNamevalid = false;
     }
     if (!this.contactForm.get('surname').valid) {
-        this.surnamevalid = false;
+      this.surnamevalid = false;
     }
 
     if (!this.contactForm.get('phoneNumber').valid) {
-        this.phoneNumbervalid = false;
+      this.phoneNumbervalid = false;
     }
     if (this.surnamevalid && this.firstNamevalid && this.phoneNumbervalid) {
-        this.addContact();
+      this.updateContact();
     }
   }
 }
