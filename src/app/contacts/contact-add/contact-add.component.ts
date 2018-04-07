@@ -40,16 +40,7 @@ export class ContactAddComponent implements OnInit {
       ])
     });
   }
-  isFieldValid(field: string) {
-    return !this.contactForm.get(field).valid && this.contactForm.get(field).touched;
-  }
 
-  displayFieldCss(field: string) {
-    return {
-      'has-error': this.isFieldValid(field),
-      'has-feedback': this.isFieldValid(field)
-    };
-  }
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
