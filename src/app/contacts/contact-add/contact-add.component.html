@@ -8,20 +8,20 @@
       <label>Imię</label>
       <input [formControlName]="'firstName'" type="text" class="form-control" placeholder="Imię">
 
-      <!-- <p *ngIf="!contactForm.get('firstName').valid && contactForm.get('firstName').touched" class="error">Uzupełnij to pole</p> -->
+      <p *ngIf="!contactForm.get('firstName').valid && contactForm.get('firstName').touched" class="error">Uzupełnij to pole</p>
 
     </div>
     <div class="col-sm-12 col-xl-4">
       <label>Nazwisko</label>
       <input [formControlName]="'surname'" type="text" class="form-control" placeholder="Nazwisko" autofocus>
-      <!-- <p *ngIf="!contactForm.get('surname').valid && contactForm.get('surname').touched" class="error">Uzupełnij to pole</p> -->
+      <p *ngIf="!contactForm.get('surname').valid && contactForm.get('surname').touched" class="error">Uzupełnij to pole</p>
 
     </div>
 
     <div class="col-sm-12 col-xl-4">
       <label>Numer telefonu</label>
       <input [formControlName]="'phoneNumber'" type="text" class="form-control" placeholder="Numer telefonu">
-      <!-- <p *ngIf="!contactForm.get('phoneNumber').valid && contactForm.get('phoneNumber').touched" class="error">Uzupełnij to pole</p> -->
+      <p *ngIf="!contactForm.get('phoneNumber').valid && contactForm.get('phoneNumber').touched" class="error">Uzupełnij to pole</p>
 
     </div>
   </div>
