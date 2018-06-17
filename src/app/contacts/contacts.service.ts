@@ -3,20 +3,19 @@ import { Observable } from 'rxjs/Observable';
 import { ContactModel } from '../models/contact-model';
 import { Http, RequestOptions  } from '@angular/http';
 import { Headers} from '@angular/http';
-
-
 import 'rxjs/add/operator/map';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ContactsService {
   private baseApiUrl = 'http://www.contactapi.pl';
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private httpClient: HttpClient) {}
 
-  getContacts(): Observable<ContactModel[]> {
-    return this.http
+  getContacts(): Observable<any> {
+    return this.httpClient
       .get(this.baseApiUrl + '/contacts')
-      .map(result => result.json());
+      .map(result => result);
   }
   getContact(id: number): Observable<ContactModel> {
     return this.http

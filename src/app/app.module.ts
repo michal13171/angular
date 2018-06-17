@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {RouterModule } from '@angular/router';
@@ -8,6 +9,10 @@ import { ContactsListComponent } from './contacts/contacts-list/contacts-list.co
 import { AppRoutingModule } from './app-routing-module';
 import { ContactsService } from './contacts/contacts.service';
 import { HttpModule } from '@angular/http';
+import { LoginModule } from './login/login.module';
+import { AuthService } from './login/auth.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './login/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -17,9 +22,15 @@ import { HttpModule } from '@angular/http';
     BrowserModule,
     ContactsModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    LoginModule,
+    HttpClientModule
   ],
-  providers: [ContactsService],
+  providers: [ContactsService, AuthService, AuthGuard,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
